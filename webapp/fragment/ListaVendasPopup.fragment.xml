@@ -1,0 +1,17 @@
+<core:FragmentDefinition    	
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<Popover
+		id="myListPopover"
+		title="Vendas por ano"
+		afterClose="handleAfterClose"
+		placement="Left">
+	<Tree id="treeVendasProduto" class="sapUiContentPadding"
+		    items="{path: '/'}"
+			busyIndicatorDelay="0"
+			toggleOpenState="onToggleOpenState">
+			<StandardTreeItem title="{text}"/>
+	</Tree>	
+  </Popover>
+</core:FragmentDefinition>

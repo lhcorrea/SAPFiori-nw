@@ -1,0 +1,76 @@
+<mvc:View
+	controllerName="com.lhccustodio.projetos.sapbas.odata.nw.controller.ctrlProductList"
+	displayBlock="true"
+	id="vwProductList"
+	xmlns="sap.m"
+	xmlns:f="sap.f"
+	xmlns:frm="sap.ui.layout.form"
+	xmlns:core="sap.ui.core"
+	xmlns:mvc="sap.ui.core.mvc">
+	
+	<f:DynamicPage id="dynamicPageId" toggleHeaderOnTitleClick="false">
+		<!-- DynamicPage Title -->
+		<f:title >
+			<f:DynamicPageTitle class="focus-in-contract">
+				<f:heading>
+					<Title  text="Lista de produtos NorthWind oData V2.0 by Luiz Custodio (lhccustodio@gmail.com)"/>					
+				</f:heading>				
+			</f:DynamicPageTitle>
+			
+		</f:title>
+
+		<!-- DynamicPage Content -->
+		<f:content>
+		<Label text="luiz"/>
+			<VBox>		
+			   <OverflowToolbar>						 
+				 <ComboBox placeholder="Filtrar por categoria" change="onComboFilter($event ,'cat')"  id="cbxCategorias"></ComboBox>				 
+				 <ComboBox placeholder="Filtrar por fornecedor" change="onComboFilter($event ,'fcd')"  id="cbxFornecedores"></ComboBox>					
+				 <SearchField search=".onSearch" width="17.5rem" placeholder="Pesquisar por produto" id="edtPesquisaProduto"/>
+				 <Button	text="Filtrar" visible="false" press="onSearch" icon="sap-icon://filter"/>
+				 <Button	text="Limpar filtro" press="onReset" type="Transparent"/>					
+			    </OverflowToolbar>
+				
+				<Table
+					id="productsTable"
+					class="sapFDynamicPageAlignContent"					
+					width="auto">
+					<headerToolbar>					
+						<OverflowToolbar>
+							<Title id="lblProductsCount" text="Products" level="H2"/>							
+							<ToolbarSpacer/>
+							<Button
+								tooltip="Sort"
+								icon="sap-icon://sort"
+								press="handleSortButtonPressed"/>
+							<Button
+								tooltip="Filter"
+								icon="sap-icon://filter"
+								press="handleFilterButtonPressed"/>
+							<Button
+								tooltip="Group"
+								icon="sap-icon://group-2"
+								press="handleGroupButtonPressed"/>
+							<ToggleButton icon="sap-icon://menu" tooltip="Enable Custom Context Menu" press="onToggleContextMenu" />
+						</OverflowToolbar>
+					</headerToolbar>					
+					<infoToolbar>
+						<OverflowToolbar id="vsdFilterBar" visible="false">
+							<Text id="vsdFilterLabel" />
+						</OverflowToolbar>
+					</infoToolbar>
+
+				</Table>
+			</VBox>
+		</f:content>
+
+		<!-- DynamicPage Footer -->
+		<f:footer>
+			<OverflowToolbar>
+				<ToolbarSpacer/>
+				<Button type="Accept" text="Accept"/>
+				<Button type="Reject" text="Reject"/>
+			</OverflowToolbar>
+		</f:footer>
+	</f:DynamicPage>
+</mvc:View>

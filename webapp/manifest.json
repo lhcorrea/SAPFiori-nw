@@ -1,0 +1,173 @@
+{
+  "_version": "1.37.0",
+  "sap.app": {
+    "id": "com.lhccustodio.projetos.sapbas.odata.nw",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:basic",
+      "version": "1.12.1",
+      "toolsId": "36cf81b4-740f-4d1d-a6df-e3ad358dd510"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/northwind/northwind.svc/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/metadata.xml",
+          "odataVersion": "2.0"
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.96.27",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.f": {},
+        "sap.suite.ui.generic.template": {},
+        "sap.ui.comp": {},
+        "sap.ui.generic.app": {},
+        "sap.ui.table": {},
+        "sap.ushell": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "com.lhccustodio.projetos.sapbas.odata.nw.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {}
+      },
+      "app": {
+				"type": "sap.ui.model.json.JSONModel",
+				"settings": {},
+				"uri": "model/app.json",
+				"preload": false
+			},
+      "products": {
+				"type": "sap.ui.model.json.JSONModel",
+				"settings": {},
+				"uri": "/mockdata/products.json",
+				"preload": false
+			}
+
+    },
+    "resources": {
+      "css": [
+        {
+          "uri": "css/style.css"
+        }
+      ]
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.f.routing.Router",
+				"type": "View",
+				"viewType": "XML",
+				"path": "com.lhccustodio.projetos.sapbas.odata.nw.view",
+				"controlId": "flexibleColumnLayout",
+				"transition": "slide",
+				"async": true,                
+        "fullWidth": true
+      },
+      "routes": [
+        {
+					"pattern": "AppAbout",
+					"name": "AppAbout",
+					"target": "AppAbout",
+					"layout": "EndColumnFullScreen"
+				},
+				{
+					"pattern": ":layout:",
+					"name": "master",
+					"target": [
+						"master",
+						"detail"
+					]
+				},
+				{
+					"pattern": "detail/{product}/{layout}",
+					"name": "detail",
+					"target": [
+						"master",
+						"detail"
+					]
+				},
+        {
+					"pattern": "detail/{product}/SupplierDetail/{supplier}/{layout}",
+					"name": "SupplierDetail",
+					"target": [
+						"master",
+						"detail",
+						"SupplierDetail"
+					]
+				}
+			],      
+      "targets": {
+				"master": {
+					"name": "vwProductList",
+					"controlAggregation": "beginColumnPages",
+          "id": "tgProductList"
+				},
+				"detail": {
+					"name": "vwProductDetail",
+					"controlAggregation": "midColumnPages",
+          "id": "tgProductDetail"
+				},
+        "SupplierDetail": {
+					"name": "vwSupplierDetail",
+					"controlAggregation": "endColumnPages",
+          "id": "tgSupplierDetail"
+				},
+        "AppAbout": {
+					"name": "vwAppAbout",
+					"controlAggregation": "endColumnPages",
+          "id": "tgAppAbout"
+				}
+
+			}
+    },
+    "rootView": {
+      "viewName": "com.lhccustodio.projetos.sapbas.odata.nw.view.vwPrincipal",
+      "type": "XML",
+      "async": true,
+      "id": "fcl"
+    }
+  }
+}

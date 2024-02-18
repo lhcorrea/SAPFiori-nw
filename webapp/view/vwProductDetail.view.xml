@@ -1,0 +1,111 @@
+<mvc:View controllerName="com.lhccustodio.projetos.sapbas.odata.nw.controller.ctrlProductDetail"
+		height="100%"		
+	displayBlock="true"
+	xmlns="sap.m"
+	xmlns:f="sap.f"
+	xmlns:h="sap.uxap"
+	xmlns:form="sap.ui.layout.form"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:layout="sap.ui.layout"
+    xmlns:viz="sap.viz.ui5.controls"
+    xmlns:viz.data="sap.viz.ui5.data"
+	xmlns:core="sap.ui.core"
+    xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds">		
+		
+	<Page 
+	    id="pageProductDetail"
+		showHeader="false"
+		enableScrolling="false"
+		class="sapUiContentPadding">			 				
+			<OverflowToolbar>
+				<Title text="Detalhes"/>
+				<ToolbarSpacer />				
+					
+					<ToggleButton
+						text="Editar"
+						type="Emphasized"
+						press=".onEditToggleButtonPress"/>
+						
+					<Button
+						text="Excluir"
+						type="Transparent"
+						press=".onButtonDelete"/>
+					<Button
+						text="Duplicar"
+						type="Transparent"
+						press=".onNotImplemented"/>				
+
+					<OverflowToolbarButton
+						type="Transparent"
+						icon="sap-icon://decline"
+						press=".handleClose"
+						tooltip="Close column"
+						visible="{= ${/actionButtonsInfo/midColumn/closeColumn} !== null }"/>
+				
+			</OverflowToolbar>	
+			<content>
+					<Panel width="auto" class="sapUiContentPadding">			
+						<headerToolbar>			
+							<OverflowToolbar>
+								<Title text="{productSummary>/produto/productID} / {productSummary>/produto/productName}"/>
+								<ToolbarSpacer />
+								<GenericTag text="{=${productSummary>/produto/productDiscontinued} === false ? 'ATIVO' : 'INATIVO'}" 								            
+								            status="{=${productSummary>/produto/productDiscontinued} === false ? 'Success' : 'Error'}">
+								</GenericTag>
+							</OverflowToolbar>
+						</headerToolbar>				
+						<content>
+							<FlexBox justifyContent="Start" alignItems="Start">
+								<GenericTag id="gtPreco" text="Preço" design="StatusIconHidden"  status="Success" class="sapUiSmallMarginEnd">								    
+										<ObjectNumber number="{
+															path:'productSummary>/produto/productUnitPrice',
+															type:'sap.ui.model.type.Float',
+															formatOptions:{maxFractionDigits: 2,minFractionDigits: 2}
+															}"							  
+														unit="BRL"/>														
+								</GenericTag>										
+
+								<GenericTag id="gtVendas" text="Vendas" press="onPressViewVendas" tooltip="Toque para ver mais detalhes" status="Information">
+							     <ObjectNumber id="onVenda" state="Error" emphasized="false" number="0" class="sapUiSmallMarginEnd"/>			
+							    </GenericTag>
+							</FlexBox>
+							<FlexBox justifyContent="Start" alignItems="Start">
+								<GenericTag text="Estoque" design="StatusIconHidden" status="Warning" class="sapUiResponsiveMargin">
+							      <ObjectNumber state="Error" emphasized="false" number="{path:'productSummary>/produto/productUnitsInStock',
+								                                                          type:'sap.ui.model.type.Integer'
+																						 }"
+																				 unit='x {productSummary>/produto/productQuantityPerUnit}' />
+							    </GenericTag>
+							</FlexBox>
+							<MessageStrip
+								class="sapUiTinyMargin"
+								text="{productSummary>/produto/productDescription}"
+								type="Information"
+								showIcon="true">
+							</MessageStrip>																				
+						</content>
+					</Panel>
+
+					<layout:FixFlex id="chartFixFlex">
+					 <layout:fixContent>													
+						<VBox width="250px">									
+							<Select id='SelectGraphicType' maxWidth="250px" selectedKey="{/key}" change='onYearChartChanged' 
+								items="{path: '/op'}">
+								<items>
+									<core:Item text="{text}" key="{key}" />
+								</items>
+							</Select>
+						</VBox>														
+					 </layout:fixContent>
+				 	 <layout:flexContent>							
+						<viz:VizFrame id="idVizFrame" uiConfig="{applicationSet:'fiori'}"
+							height='50%' width="100%" vizType='timeseries_line'>													
+							<viz:dependents>
+								<viz:Popover id="idPopOver"></viz:Popover>
+							</viz:dependents>
+						</viz:VizFrame>						
+	  	             </layout:flexContent>
+     			    </layout:FixFlex>		
+		</content>
+	</Page>
+</mvc:View>

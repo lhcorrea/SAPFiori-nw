@@ -1,0 +1,93 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:f="sap.ui.layout.form"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:core="sap.ui.core">
+	<Dialog
+	    xmlns="sap.m" 
+		id="editProductDialog"
+		title="Editar Produto">
+		<OverflowToolbar>				
+				<ToolbarSpacer />									
+					<OverflowToolbarButton
+						type="Transparent"
+						icon="sap-icon://decline"
+						press=".onDialogCancel"
+						tooltip="Close column"/>				
+			</OverflowToolbar>	
+		<content>	
+			<HBox justifyContent="Start" >
+				<VBox class="sapUiSmallMarginBegin">
+					<Label text="Descrição" class="sapThemeBrand-asColor"/>
+					<Input id="edtProductName" required="true" change="onChange" width="20rem" value="{						
+						type : 'sap.ui.model.type.String'}" />
+				</VBox>
+				<VBox class="sapUiSmallMarginBegin">
+					<Label text="Categoria" class="sapThemeBrand-asColor"/>
+					<Select id="cbxProductCategoria">
+							<items>
+								<core:Item text="England" key="England" />
+								<core:Item text="Germany" key="Germany" />
+								<core:Item text="USA" key="USA" />
+							</items>
+					</Select>                    
+				</VBox>
+				<VBox class="sapUiSmallMarginBegin">			
+					<Label text="Fornecedor" class="sapThemeBrand-asColor"/>
+					<Select id="cbxProductFornecedor" class="sapUiSmallMarginEnd">
+							<items>
+								<core:Item text="England" key="England" />
+								<core:Item text="Germany" key="Germany" />
+								<core:Item text="USA" key="USA" />
+							</items>
+					</Select>                    
+				</VBox>
+			</HBox>		
+
+			<HBox justifyContent="Start" >
+				<VBox class="sapUiSmallMarginBegin">
+					<Label text="Preço" class="sapThemeBrand-asColor"/>
+					<Input id="edtProductPreco" width="5rem" 
+						   value="{type:'sap.ui.model.type.Float'}" 
+						   liveChange="onInputLiveChange" 
+						   change="onInputChange">
+				</Input>			
+				</VBox>
+				<VBox class="sapUiSmallMarginBegin">
+					<Label text="Estoque" class="sapThemeBrand-asColor"/>
+					<Input id="edtProductEstoque" width="5rem" 
+					       value="{type:'sap.ui.model.type.Integer'}" 
+						   liveChange="onInputLiveChange" 
+						   change="onInputChange">
+				</Input>			
+				</VBox>
+				<VBox class="sapUiSmallMarginBegin">
+					<Label text="Por Unidade" class="sapThemeBrand-asColor"/>
+					<Input id="edtProductQtdPorUnidade" width="15rem" 
+					       value="{type:'sap.ui.model.type.String'}"/>			   
+				</VBox>
+				<VBox class="sapUiSmallMarginBegin">
+					<Label text = 'Disponível' design="Bold"></Label>
+					<Switch state="false" customTextOn="Sim" customTextOff="Não" class="sapUiSmallMarginEnd">
+						<layoutData>
+							<FlexItemData growFactor="1" />
+						</layoutData>
+					</Switch>
+				</VBox>
+			</HBox>		
+			
+			<HBox justifyContent="Start" >
+				<VBox class="sapUiSmallMarginBegin">
+					<Label text="Detahes" class="sapThemeBrand-asColor"/>
+					<TextArea id="edtProductDetails" width="45em" placeholder="Informações gerais sobre o produto..." growing="true" growingMaxLines="7" />
+				</VBox>				
+			</HBox>		
+		</content>	
+		<beginButton>
+			<Button tooltip="Add" icon="sap-icon://accept" type="Accept" press=".onDialogOK"/>
+		</beginButton>
+		<endButton>
+			<Button tooltip="Cancel" icon="sap-icon://cancel" type="Reject" press=".onDialogCancel"/>
+		</endButton>		
+	</Dialog>
+</core:FragmentDefinition>
